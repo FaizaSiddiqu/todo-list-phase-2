@@ -1,39 +1,39 @@
 # Todo Full-Stack Web Application with AI Chatbot
 
 > **Hackathon II: Evolution of Todo**  
-> **Phase**: III - AI-Powered Chatbot  
+> **Phase**: II & III - Web Application + AI Chatbot  
 > **Built with**: Spec-Driven Development (SDD) methodology
 
 A production-ready, multi-user web application with AI-powered conversational task management, built entirely through **Spec-Driven Development**.
 
-## 📋 Phases Completed
+## Phases Completed
 
-- ✅ **Phase I**: Console App (Python)
-- ✅ **Phase II**: Web Application (Next.js + FastAPI)
-- ✅ **Phase III**: AI Chatbot (OpenAI + MCP) ← **NEW**
+- Phase I: Console App (Python)
+- Phase II: Web Application (Next.js + FastAPI)
+- Phase III: AI Chatbot (OpenAI + MCP)
 
-## ✨ Phase III: AI Chatbot Features
+## Phase III: AI Chatbot Features
 
-### 🤖 Natural Language Task Management
+### Natural Language Task Management
 - Conversational interface for all task operations
 - Understand natural language commands
 - Context-aware multi-turn conversations
 - Persistent conversation history
 
-### 🛠️ MCP Tools (5 Task Operations)
+### MCP Tools (5 Task Operations)
 - **add_task**: Create new tasks via chat
 - **list_tasks**: View tasks with natural filters
 - **complete_task**: Toggle completion status
 - **delete_task**: Remove tasks by ID or description
 - **update_task**: Modify task details
 
-### 🔒 Security & Architecture
+### Security & Architecture
 - Stateless server design (horizontally scalable)
 - JWT authentication for all endpoints
 - User data isolation per conversation
 - Conversation state persists in database
 
-### 💬 Example Commands
+### Example Commands
 ```
 "Add a task to buy groceries"
 "Show me all my tasks"
@@ -45,18 +45,15 @@ A production-ready, multi-user web application with AI-powered conversational ta
 
 ---
 
-## 📋 Spec-Driven Development Process
+## Spec-Driven Development Process
 
 This project was built using the **Spec-Driven Development (SDD)** methodology:
 
 ```
 Phase III Process:
 1. Specification (specs/003-chatbot/spec.md) - Requirements & user stories
-   ↓
 2. Technical Plan (specs/003-chatbot/plan.md) - Architecture & components
-   ↓  
 3. Task Breakdown (specs/003-chatbot/tasks.md) - Implementation tasks
-   ↓
 4. Implementation - Code following the plan
 ```
 
@@ -64,12 +61,40 @@ Phase III Process:
 
 ```
 todo-fullstack/
-├── backend/           # FastAPI backend
+├── backend/                  # FastAPI backend
 │   ├── app/
-│   │   ├── main.py
+│   │   ├── main.py          # FastAPI app
+│   │   ├── models.py        # Database models
+│   │   ├── schemas.py       # Pydantic schemas
+│   │   ├── auth.py          # JWT authentication
+│   │   ├── agents/          # AI Agent
+│   │   │   └── todo_agent.py
+│   │   ├── mcp_server/      # MCP Tools
+│   │   │   └── tools.py
+│   │   └── routes/
+│   │       ├── auth.py      # Auth endpoints
+│   │       ├── tasks.py     # Task CRUD
+│   │       └── chat.py      # Chat endpoint
+│   └── requirements.txt
+├── frontend/                 # Next.js frontend
+│   ├── src/
+│   │   ├── app/             # Pages
+│   │   ├── components/      # React components
+│   │   └── lib/             # API client & auth
+│   └── package.json
+├── specs/
+│   ├── 002-web-app/         # Phase II specs
+│   └── 003-chatbot/         # Phase III specs
+├── AGENTS.md                # AI agent instructions
+├── CLAUDE.md                # Claude Code guide
+└── .specify/
+    └── memory/
+        └── constitution.md   # Project principles
+```
+
 ---
 
-## 🏗️ Tech Stack
+## Tech Stack
 
 | Layer | Technology | Purpose |
 |-------|------------|---------|
@@ -81,61 +106,15 @@ todo-fullstack/
 | **ORM** | SQLModel | Type-safe database operations |
 | **Auth** | JWT | Secure token-based authentication |
 
-## 📁 Project Structure
-
-```
-todo-fullstack/
-├── backend/                  # FastAPI backend
-│   ├── app/
-│   │   ├── main.py          # FastAPI app with Phase III router
-│   │   ├── models.py        # SQLModel models (Task, User, Conversation, Message)
-│   │   ├── schemas.py       # Pydantic schemas
-│   │   ├── auth.py          # JWT authentication
-│   │   ├── config.py        # Configuration
-│   │   ├── database.py      # Database connection
-│   │   ├── agents/          # ✨ NEW: AI Agent
-│   │   │   └── todo_agent.py
-│   │   ├── mcp_server/      # ✨ NEW: MCP Tools
-│   │   │   └── tools.py
-│   │   └── routes/
-│   │       ├── auth.py      # Auth endpoints
-│   │       ├── tasks.py     # Task CRUD endpoints
-│   │       └── chat.py      # ✨ NEW: Chat endpoint
-│   ├── migrations/          # ✨ NEW: Database migrations
-│   │   └── 003_add_chat_tables.sql
-│   └── requirements.txt
-├── frontend/                # Next.js frontend
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── dashboard/   # Task dashboard
-│   │   │   ├── login/       # Login page
-│   │   │   ├── signup/      # Signup page
-│   │   │   └── chat/        # ✨ NEW: Chat interface
-│   │   ├── components/
-│   │   │   ├── TaskList.tsx
-│   │   │   ├── TaskItem.tsx
-│   │   │   └── TaskForm.tsx
-│   │   └── lib/
-│   │       ├── api.ts       # API client
-│   │       └── auth-context.tsx
-│   └── package.json
-└── specs/                   # Spec-driven development files
-    ├── 002-web-app/        # Phase II specs
-    └── 003-chatbot/        # ✨ NEW: Phase III specs
-        ├── spec.md
-        ├── plan.md
-        └── tasks.md
-```
-
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
 - Python 3.13+
-- Node.js 20+
-- PostgreSQL database (Neon recommended)
+- Node.js 18+
+- PostgreSQL database (or Neon account)
 - OpenAI API key
 
 ### Backend Setup
@@ -145,28 +124,20 @@ cd backend
 
 # Create virtual environment
 python -m venv venv
-venv\Scripts\activate  # Windows
-# source venv/bin/activate  # Linux/Mac
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Create .env file from example
-copy .env.example .env
-# Edit .env with your credentials:
-# - DATABASE_URL (Neon PostgreSQL)
-# - JWT_SECRET
-# - OPENAI_API_KEY ← NEW for Phase III
-
-# Run database migration (Phase III)
-# The tables will be created automatically on first run
+# Configure environment
+cp .env.example .env
+# Edit .env with your DATABASE_URL and OPENAI_API_KEY
 
 # Run the server
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8000
 ```
 
-The API will be available at http://localhost:8000  
-API Documentation: http://localhost:8000/docs
+The backend will be available at http://localhost:8000
 
 ### Frontend Setup
 
@@ -176,244 +147,288 @@ cd frontend
 # Install dependencies
 npm install
 
+# Configure environment
+echo "NEXT_PUBLIC_API_URL=http://localhost:8000" > .env.local
+
 # Run the development server
 npm run dev
 ```
 
 The frontend will be available at http://localhost:3000
 
+### Using Docker Compose
+
+```bash
+# Run both frontend and backend
+docker-compose up
+
+# Frontend: http://localhost:3000
+# Backend: http://localhost:8000
+```
+
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Authentication
-- `POST /api/auth/signup` - Register new user
-- `POST /api/auth/login` - Login and get JWT token
-- `GET /api/auth/me` - Get current user info
 
-### Tasks (require authentication)
-- `GET /api/tasks` - List all tasks
-- `POST /api/tasks` - Create a task
-- `GET /api/tasks/{id}` - Get task details
-- `PUT /api/tasks/{id}` - Update a task
-- `DELETE /api/tasks/{id}` - Delete a task
-- `PATCH /api/tasks/{id}/complete` - Toggle completion
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/signup` | Create new account |
+| POST | `/api/auth/login` | Login and get JWT token |
+| GET | `/api/auth/me` | Get current user info |
 
-### Chat (Phase III - NEW)
-- `POST /api/{user_id}/chat` - Send message, get AI response
-- `GET /api/{user_id}/conversations` - List user's conversations
-- `GET /api/{user_id}/conversations/{id}/messages` - Get conversation history
+### Tasks (Requires JWT)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/tasks` | List all tasks for user |
+| POST | `/api/tasks` | Create new task |
+| GET | `/api/tasks/{id}` | Get task details |
+| PUT | `/api/tasks/{id}` | Update task |
+| DELETE | `/api/tasks/{id}` | Delete task |
+| PATCH | `/api/tasks/{id}/complete` | Toggle completion |
+
+### Chat (Phase III)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/chat` | Send message to AI assistant |
 
 ---
 
-## 🔧 Environment Variables
+## Features
+
+### Phase II - Web Application
+
+#### Core Features
+- User registration and authentication
+- Create, read, update, delete tasks
+- Mark tasks as complete/incomplete
+- Persistent storage in PostgreSQL
+- Multi-user support with data isolation
+
+#### Technical Features
+- RESTful API with FastAPI
+- SQLModel ORM for database operations
+- JWT-based authentication
+- Password hashing with bcrypt
+- Responsive UI with Tailwind CSS
+- TypeScript for type safety
+
+### Phase III - AI Chatbot
+
+#### AI Features
+- Natural language task management
+- Multi-turn conversation support
+- Context-aware responses
+- Conversation history persistence
+
+#### MCP Tools
+1. **add_task** - Create tasks via natural language
+2. **list_tasks** - Query tasks with filters
+3. **complete_task** - Mark tasks complete
+4. **delete_task** - Remove tasks
+5. **update_task** - Modify task details
+
+#### Architecture
+- Stateless server design (horizontally scalable)
+- OpenAI Agents SDK integration
+- Custom MCP tools for task operations
+- Database-persisted conversation state
+
+---
+
+## Development Workflow
+
+### 1. Spec-Driven Development
+
+All features follow the SDD process:
+
+1. **Specify** - Define requirements in `specs/*/spec.md`
+2. **Plan** - Design architecture in `specs/*/plan.md`
+3. **Tasks** - Break down work in `specs/*/tasks.md`
+4. **Implement** - Write code following the plan
+
+### 2. Git Workflow
+
+```bash
+# Always reference specs in commits
+git commit -m "feat: Implement chat endpoint per specs/003-chatbot/plan.md"
+```
+
+### 3. Testing
+
+```bash
+# Backend tests
+cd backend
+pytest --cov=app
+
+# Frontend tests
+cd frontend
+npm test
+```
+
+---
+
+## Database Schema
+
+### Users Table
+- `id` (primary key)
+- `email` (unique)
+- `password_hash`
+- `name`
+- `created_at`
+
+### Tasks Table
+- `id` (primary key)
+- `user_id` (foreign key)
+- `title`
+- `description`
+- `completed`
+- `created_at`
+- `updated_at`
+
+### Conversations Table (Phase III)
+- `id` (primary key)
+- `user_id` (foreign key)
+- `created_at`
+- `updated_at`
+
+### Messages Table (Phase III)
+- `id` (primary key)
+- `conversation_id` (foreign key)
+- `user_id` (foreign key)
+- `role` (user/assistant)
+- `content`
+- `created_at`
+
+---
+
+## Deployment
+
+### Frontend (Vercel)
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+cd frontend
+vercel
+```
+
+### Backend (Railway/Render)
+
+1. Create account on Railway or Render
+2. Connect GitHub repository
+3. Set environment variables:
+   - `DATABASE_URL`
+   - `JWT_SECRET`
+   - `OPENAI_API_KEY`
+4. Deploy
+
+### Database (Neon)
+
+1. Create account at neon.tech
+2. Create new project
+3. Copy connection string
+4. Add to backend `.env` as `DATABASE_URL`
+
+---
+
+## Environment Variables
 
 ### Backend (.env)
-```env
-# Database
-DATABASE_URL=postgresql://user:pass@host:5432/dbname
 
-# JWT Authentication
-JWT_SECRET=your-super-secret-key-change-in-production
+```bash
+DATABASE_URL=postgresql://user:password@host/database
+JWT_SECRET=your-secret-key-here
 JWT_ALGORITHM=HS256
 JWT_EXPIRATION_HOURS=24
-
-# OpenAI API (Phase III)
-OPENAI_API_KEY=sk-proj-your-api-key-here
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_API_KEY=sk-...
 ```
 
 ### Frontend (.env.local)
-```env
+
+```bash
 NEXT_PUBLIC_API_URL=http://localhost:8000
 ```
 
 ---
 
-## 💡 Using the AI Chatbot
-
-### Access
-1. Log in to the application
-2. Click the **🤖 AI Chat** button in the dashboard
-3. Start chatting!
-
-### Example Conversations
-
-**Adding a Task:**
-```
-You: Add a task to buy groceries
-Bot: ✅ I've added 'Buy groceries' to your list (Task #5)
-```
-
-**Listing Tasks:**
-```
-You: Show me all my tasks
-Bot: You have 3 pending tasks:
-     1. Buy groceries (Task #5)
-     2. Call mom (Task #3)
-     3. Pay bills (Task #7)
-```
-
-**Completing a Task:**
-```
-You: Mark task 3 as complete
-Bot: ✅ Marked 'Call mom' as complete!
-```
-
-**Updating a Task:**
-```
-You: Update task 5 to "Buy groceries and fruits"
-Bot: ✅ I've updated Task #5 to 'Buy groceries and fruits'
-```
-
-**Deleting a Task:**
-```
-You: Delete task 7
-Bot: ✅ I've deleted 'Pay bills' from your list.
-```
-
----
-
-## 🧪 Testing
-
-### Backend Tests
-```bash
-cd backend
-pytest
-
-# Expected output:
-# ====================== test session starts ======================
-# collected X items
-# tests/test_models.py::test_conversation_creation PASSED
-# tests/test_mcp_tools.py::test_add_task PASSED
-# ...
-# ======================= X passed in Y.Ys =======================
-```
-
-### Manual Testing
-1. Start backend: `uvicorn app.main:app --reload`
-2. Start frontend: `npm run dev`
-3. Create an account at http://localhost:3000/signup
-4. Navigate to http://localhost:3000/chat
-5. Test natural language commands
-
----
-
-## 🔒 Features
-
-## 🔒 Features Summary
-
-### Phase I (Console App)
-- ✅ Add, list, update, delete, complete tasks
-- ✅ In-memory storage
-- ✅ Python CLI interface
-
-### Phase II (Web Application)
-- ✅ User authentication (signup/login with JWT)
-- ✅ Multi-user support with data isolation
-- ✅ Persistent PostgreSQL storage (Neon)
-- ✅ Responsive web interface
-- ✅ RESTful API
-
-### Phase III (AI Chatbot) ← Current
-- ✅ Natural language task management
-- ✅ 5 MCP tools for task operations
-- ✅ Conversational interface
-- ✅ Persistent conversation history
-- ✅ Stateless architecture (horizontally scalable)
-- ✅ Context-aware multi-turn conversations
-
----
-
-## 📚 Documentation
-
-- [Phase III Specification](specs/003-chatbot/spec.md) - Requirements and user stories
-- [Phase III Plan](specs/003-chatbot/plan.md) - Architecture and design decisions
-- [Phase III Tasks](specs/003-chatbot/tasks.md) - Implementation breakdown
-- [API Documentation](http://localhost:8000/docs) - Interactive API docs (when server running)
-
----
-
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Backend Issues
 
-**Database Connection Error:**
+**Database connection fails**
 ```bash
-# Verify DATABASE_URL in .env
-# Test connection:
-psql $DATABASE_URL
+# Check DATABASE_URL in .env
+# Ensure PostgreSQL is running
+# Test connection: psql $DATABASE_URL
 ```
 
-**OpenAI API Error:**
+**OpenAI API errors**
 ```bash
 # Verify OPENAI_API_KEY in .env
-# Test with:
-python -c "import os; from openai import OpenAI; client = OpenAI(api_key=os.getenv('OPENAI_API_KEY')); print(client.models.list())"
-```
-
-**Migration Issues:**
-```bash
-# Tables should be created automatically
-# If not, check models are imported in app/models.py
-# Verify database.py calls create_db_and_tables()
+# Check API key at platform.openai.com
 ```
 
 ### Frontend Issues
 
-**Chat Page Not Loading:**
+**API calls fail**
 ```bash
-# Check if user is logged in
-# Verify token in localStorage
-# Check browser console for errors
+# Check NEXT_PUBLIC_API_URL in .env.local
+# Ensure backend is running on correct port
+# Check browser console for CORS errors
 ```
 
-**API Connection Error:**
+**Build errors**
 ```bash
-# Verify backend is running on port 8000
-# Check CORS settings in backend/app/main.py
-# Ensure API URL is correct in api.ts
+# Clear Next.js cache
+rm -rf .next
+npm run build
 ```
 
 ---
 
-## 🎯 Next Steps (Phase IV & V)
+## Contributing
 
-### Phase IV: Kubernetes Deployment
-- Docker containerization
-- Helm charts
-- Minikube local deployment
-- kubectl-ai for K8s operations
+This project follows Spec-Driven Development:
 
-### Phase V: Cloud-Native
-- Advanced features (recurring tasks, reminders, priorities)
-- Event-driven architecture (Kafka)
-- Dapr integration
-- Cloud deployment (Oracle/Azure/GCP)
+1. Create specification in `specs/`
+2. Get spec approved
+3. Implement following the spec
+4. Reference spec in commit messages
 
 ---
 
-## 📝 License
+## Documentation
 
-MIT
-
----
-
-## 🙏 Acknowledgments
-
-- Built for **Hackathon II: Evolution of Todo**
-- Methodology: **Spec-Driven Development (SDD)**
-- AI Stack: OpenAI GPT-4o-mini
-- Database: Neon Serverless PostgreSQL
-- Framework: FastAPI + Next.js
+- **AGENTS.md** - AI agent collaboration guidelines
+- **CLAUDE.md** - Claude Code instructions
+- **SDD-SUMMARY.md** - SDD process summary
+- **specs/** - All feature specifications
+- **.specify/memory/constitution.md** - Project principles
 
 ---
 
-**Ready for Phase IV: Kubernetes Deployment** 🚀
-- ✅ Create, read, update, delete tasks
-- ✅ Mark tasks as complete
-- ✅ User-specific task isolation
-- ✅ Responsive design
-- ✅ Real-time form validation
-#   t o d o - l i s t - p h a s e - 2  
- 
+## License
+
+MIT License - Part of PIAIC AI-201 Hackathon II
+
+---
+
+## Project Status
+
+- Phase I: Complete
+- Phase II: Complete
+- Phase III: Complete
+- Phase IV (Kubernetes): Coming soon
+- Phase V (Cloud Deployment): Coming soon
+
+---
+
+**Built with Spec-Driven Development**  
+**Hackathon II: Evolution of Todo**  
+**January 2026**
